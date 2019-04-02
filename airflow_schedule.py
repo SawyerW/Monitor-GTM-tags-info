@@ -14,7 +14,7 @@ default_args = {
     'owner': 'GTMChecking',
     'depends_on_past': False,
     'start_date': datetime(2019, 3, 2),
-    'email': ['wy790054473@gmail.com'],
+    'email': ['@gmail.com'],
     'email_on_failure': True,
     'email_on_retry': True,
     'retries': 5,
