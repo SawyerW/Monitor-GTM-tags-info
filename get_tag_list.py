@@ -67,7 +67,7 @@ def Get_containerlist(accountlist,service):
     pathlist=[]
     containerName=[]
     for i in range(len(accountlist)):
-        if accountlist[i]['name'] == 'LeasePlan Global':
+        if accountlist[i]['name'] == 'account name':
             container_wrapper = service.accounts().containers().list(parent=accountlist[i]['path']).execute()
             for containerinfo in container_wrapper['container']:
                 pathlist.append(containerinfo['path'])
@@ -82,7 +82,7 @@ def Get_workspacelist(containers,name,service):
         workspaces = service.accounts().containers().workspaces().list(parent=containers[i]).execute()
         if name[i] == 'LP Netherlands':
             for workspace in workspaces['workspace']:
-                if workspace['name'] == 'Leaseplan.com Workspace':
+                if workspace['name'] == 'work space name':
                     workspacelist.append(workspace['path'])
                     workspacename.append(workspace['name'])
                     containername.append(name[i])
@@ -138,7 +138,7 @@ def Get_tags_triggers(workspath,workspacename,containername,service):
             final_workspacename.append(tagsummary[i][1])
             # print(tagsummary[i])
     for i in triggersummary:
-        if i[2] == 'LeasePlan Global':
+        if i[2] == 'account name':
             print(i)
     return final_path,final_accountId,final_containerId,final_workspaceId,final_name,final_containername,final_workspacename
 
@@ -157,15 +157,10 @@ def main():
 
     df.to_excel('tags.xlsx',index=False)
     bigquery_key = 'bigquery_key.json'
-    pd.io.gbq.to_gbq(df, 'gtmtagot.tagswithoutottrigger', 'leaseplan-1515678200989',
+    pd.io.gbq.to_gbq(df, 'gtmtagot.tagswithoutottrigger', '',
                      if_exists='replace',
                      private_key=bigquery_key)
-    # except:
-    #     local_data = pd.read_excel('tags.xlsx')
-    #     bigquery_key = 'bigquery_key.json'
-    #     pd.io.gbq.to_gbq(local_data, 'gtmtagot.tagswithoutottrigger', 'leaseplan-1515678200989',
-    #                      if_exists='replace',
-    #                      private_key=bigquery_key)
+
 
 if __name__ == '__main__':
     main()
